@@ -4,15 +4,13 @@ Esta pasta contem uma aplicacao web instalavel (PWA), responsiva e offline
 depois do primeiro acesso. Inclui progresso por etapa, orcamento, despesas
 e backup manual em arquivo JSON.
 
-IMPORTANTE SOBRE PUBLICACAO
-O OneDrive pode guardar e compartilhar arquivos, mas nao hospeda este site
-como um aplicativo web instalavel. Para abrir por um link no celular, esta
-pasta precisa ser publicada em um servico de hospedagem HTTPS, como GitHub
-Pages ou Cloudflare Pages. E preciso usar uma conta do proprietario para
-publicar; nenhum link publico foi criado nesta etapa.
+LINK DA VERSAO WEB
+https://filipe-crl.github.io/minha-obra-web/
+Envie este link para quem vai usar pelo celular. O site e publico; nao coloque
+dados pessoais ou arquivos da obra no site.
 
 INSTALAR NO CELULAR
-Depois que o site estiver publicado, abra o link no navegador do celular.
+Abra o link no navegador do celular.
 No Android, use o menu do Chrome e escolha "Instalar app" ou "Adicionar a
 tela inicial". No iPhone, use Compartilhar e "Adicionar a Tela de Inicio".
 
