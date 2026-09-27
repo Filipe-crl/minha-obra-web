@@ -1,0 +1,14 @@
+{
+  "name": "Minha Obra",
+  "short_name": "Minha Obra",
+  "description": "Acompanhe o progresso e os gastos da sua obra.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f6f8",
+  "theme_color": "#102a43",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

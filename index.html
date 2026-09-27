@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#102a43">
+  <meta name="description" content="Acompanhe o progresso e os gastos da sua obra pelo celular ou computador.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Minha Obra</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Minha Obra - início">
+      <span class="brand-mark" aria-hidden="true">MO</span>
+      <span><strong>Minha Obra</strong><small>Acompanhe sua construção</small></span>
+    </a>
+    <button id="install-button" class="button button-light hidden" type="button">Instalar no celular</button>
+  </header>
+
+  <main class="page">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">PAINEL DA OBRA</p>
+        <h1 id="work-title">Minha Obra</h1>
+        <p class="muted">Seus dados ficam salvos neste aparelho.</p>
+      </div>
+      <label class="field work-name">
+        <span>Nome da obra</span>
+        <input id="work-name" maxlength="70" autocomplete="off">
+      </label>
+    </section>
+
+    <section class="summary-grid" aria-label="Resumo da obra">
+      <article class="summary-card progress-card">
+        <span>Progresso geral</span>
+        <strong id="overall-progress">0%</strong>
+        <div class="progress-track"><span id="overall-bar"></span></div>
+      </article>
+      <article class="summary-card">
+        <span>Orçamento previsto</span>
+        <strong id="planned-total">R$ 0,00</strong>
+      </article>
+      <article class="summary-card">
+        <span>Total gasto</span>
+        <strong id="spent-total">R$ 0,00</strong>
+      </article>
+      <article class="summary-card">
+        <span>Saldo do orçamento</span>
+        <strong id="balance-total">R$ 0,00</strong>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">ACOMPANHAMENTO</p><h2>Etapas da obra</h2></div>
+        </div>
+        <div id="stages-list" class="stages-list"></div>
+      </article>
+
+      <article class="panel expenses-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">CONTROLE FINANCEIRO</p><h2>Despesas recentes</h2></div>
+          <button id="add-expense" class="button button-primary" type="button">+ Nova despesa</button>
+        </div>
+        <div id="expenses-list" class="expenses-list"></div>
+      </article>
+      <article class="panel expenses-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">CONTROLE DE MATERIAIS</p><h2>Materiais da obra</h2></div>
+          <button id="add-material" class="button button-primary" type="button">+ Material</button>
+        </div>
+        <div id="materials-list" class="expenses-list"></div>
+      </article>
+    </section>
+
+    <section class="panel backup-panel">
+      <div>
+        <p class="eyebrow">WINDOWS · CELULAR · TABLET</p>
+        <h2>Transferir dados da obra</h2>
+        <p class="muted">Use o mesmo arquivo JSON para trocar dados com o Minha Obra do Windows. Baixe o arquivo e coloque-o no OneDrive; no outro aparelho, importe-o. O sistema combina lançamentos para evitar apagar despesas e materiais existentes. Faça uma transferência por vez; a sincronização automática ainda não está ativa.</p>
+      </div>
+      <div class="backup-actions">
+        <button id="export-backup" class="button button-secondary" type="button">Exportar arquivo</button>
+        <label class="button button-secondary file-button">Importar arquivo<input id="import-backup" type="file" accept="application/json,.json"></label>
+      </div>
+    </section>
+    <p class="privacy-note">Este site não envia seus dados para um servidor. O navegador guarda as informações somente neste aparelho. Não limpe os dados do navegador sem antes baixar um backup.</p>
+  </main>
+
+  <dialog id="expense-dialog" class="dialog">
+    <form id="expense-form" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">LANÇAMENTO</p><h2>Nova despesa</h2></div><button class="icon-button" value="cancel" aria-label="Fechar">×</button></div>
+      <label class="field"><span>Descrição</span><input name="description" maxlength="100" required autocomplete="off"></label>
+      <div class="form-row">
+        <label class="field"><span>Valor (R$)</span><input name="amount" type="number" min="0.01" step="0.01" required inputmode="decimal"></label>
+        <label class="field"><span>Categoria</span><select name="category"><option>Materiais</option><option>Mão de obra</option><option>Serviços</option><option>Outros</option></select></label>
+      </div>
+      <label class="field"><span>Etapa</span><select id="expense-stage" name="stage"></select></label>
+      <label class="field"><span>Data</span><input name="date" type="date" required></label>
+      <p id="expense-error" class="error-message" role="alert"></p>
+      <div class="dialog-actions"><button class="button button-secondary" value="cancel">Cancelar</button><button id="save-expense" class="button button-primary" value="save">Salvar despesa</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="progress-dialog" class="dialog">
+    <form id="progress-form" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">ETAPA DA OBRA</p><h2 id="progress-title">Atualizar etapa</h2></div><button class="icon-button" value="cancel" aria-label="Fechar">×</button></div>
+      <input name="stage" type="hidden">
+      <label class="field"><span>Progresso (%)</span><input name="progress" type="number" min="0" max="100" step="1" required inputmode="numeric"></label>
+      <label class="field"><span>Observação (opcional)</span><textarea name="observation" rows="3" maxlength="300"></textarea></label>
+      <p id="progress-error" class="error-message" role="alert"></p>
+      <div class="dialog-actions"><button class="button button-secondary" value="cancel">Cancelar</button><button class="button button-primary" value="save">Salvar progresso</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="plan-dialog" class="dialog">
+    <form id="plan-form" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">ORÇAMENTO PREVISTO</p><h2 id="plan-title">Planejar etapa</h2></div><button class="icon-button" value="cancel" aria-label="Fechar">×</button></div>
+      <input name="stage" type="hidden">
+      <label class="field"><span>Valor planejado (R$)</span><input name="planned" type="number" min="0" step="0.01" required inputmode="decimal"></label>
+      <p id="plan-error" class="error-message" role="alert"></p>
+      <div class="dialog-actions"><button class="button button-secondary" value="cancel">Cancelar</button><button class="button button-primary" value="save">Salvar orçamento</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="material-dialog" class="dialog">
+    <form id="material-form" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">MATERIAL DA OBRA</p><h2>Adicionar material</h2></div><button class="icon-button" value="cancel" aria-label="Fechar">×</button></div>
+      <label class="field"><span>Material</span><input name="name" maxlength="100" required autocomplete="off"></label>
+      <div class="form-row">
+        <label class="field"><span>Marca (opcional)</span><input name="brand" maxlength="100" autocomplete="off"></label>
+        <label class="field"><span>Etapa</span><select id="material-stage" name="stage"></select></label>
+      </div>
+      <div class="form-row">
+        <label class="field"><span>Quantidade</span><input name="quantity" type="number" min="0.01" step="0.01" required inputmode="decimal"></label>
+        <label class="field"><span>Valor unitário (R$)</span><input name="unitPrice" type="number" min="0" step="0.01" required inputmode="decimal"></label>
+      </div>
+      <p id="material-error" class="error-message" role="alert"></p>
+      <div class="dialog-actions"><button class="button button-secondary" value="cancel">Cancelar</button><button class="button button-primary" value="save">Salvar material</button></div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>

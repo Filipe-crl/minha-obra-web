@@ -1,0 +1,36 @@
+MINHA OBRA WEB - VERSAO PARA CELULAR E COMPUTADOR
+
+Esta pasta contem uma aplicacao web instalavel (PWA), responsiva e offline
+depois do primeiro acesso. Inclui progresso por etapa, orcamento, despesas
+e backup manual em arquivo JSON.
+
+IMPORTANTE SOBRE PUBLICACAO
+O OneDrive pode guardar e compartilhar arquivos, mas nao hospeda este site
+como um aplicativo web instalavel. Para abrir por um link no celular, esta
+pasta precisa ser publicada em um servico de hospedagem HTTPS, como GitHub
+Pages ou Cloudflare Pages. E preciso usar uma conta do proprietario para
+publicar; nenhum link publico foi criado nesta etapa.
+
+INSTALAR NO CELULAR
+Depois que o site estiver publicado, abra o link no navegador do celular.
+No Android, use o menu do Chrome e escolha "Instalar app" ou "Adicionar a
+tela inicial". No iPhone, use Compartilhar e "Adicionar a Tela de Inicio".
+
+SALVAR E TRANSFERIR DADOS
+Os dados ficam no armazenamento do navegador deste aparelho, nao no servidor.
+No Windows, abra Configuracoes e escolha "Exportar / enviar para celular".
+Guarde o arquivo JSON no OneDrive. No celular, abra a pagina e escolha
+"Importar arquivo" para integrar o arquivo. Para mandar as alteracoes de
+volta, baixe o backup no celular, coloque-o no OneDrive e use
+"Importar dados do celular" nas Configuracoes do Windows.
+O arquivo comum transfere etapas, orcamento, despesas, materiais e terreno.
+Dados existentes sao mantidos; registros com o mesmo identificador sao
+atualizados, despesas/materiais novos sao adicionados e etapas/terreno seguem
+o arquivo importado. A sincronizacao ainda e manual: faca uma transferencia
+por vez e evite editar a mesma obra em dois aparelhos ao mesmo tempo.
+Os arquivos ficam no OneDrive apenas quando voce os envia; nao ha sincronizacao
+automatica ou servidor compartilhado nesta versao.
+
+SEGURANCA
+Use somente um servico HTTPS de confianca. Nao publique arquivos de backup
+com dados pessoais. O arquivo de backup nao e criptografado.
