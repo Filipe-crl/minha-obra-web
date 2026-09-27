@@ -20,42 +20,78 @@
   </header>
 
   <main class="page">
-    <section class="welcome">
-      <div>
-        <p class="eyebrow">PAINEL DA OBRA</p>
-        <h1 id="work-title">Minha Obra</h1>
-        <p class="muted">Seus dados ficam salvos neste aparelho.</p>
-      </div>
-      <label class="field work-name">
-        <span>Nome da obra</span>
-        <input id="work-name" maxlength="70" autocomplete="off">
-      </label>
+    <section class="home-hero">
+      <article class="hero-card">
+        <img src="./images/house-final.png" alt="Casa contemporânea do projeto Minha Obra">
+        <div class="hero-shade"></div>
+        <div class="hero-copy">
+          <p class="eyebrow">SEU PROJETO, NO SEU CONTROLE</p>
+          <h1 id="work-title">Minha Obra</h1>
+          <p>Acompanhe cada etapa da sua construção.</p>
+        </div>
+        <label class="field work-name">
+          <span>Nome da obra</span>
+          <input id="work-name" maxlength="70" autocomplete="off">
+        </label>
+      </article>
+      <article class="panel progress-overview">
+        <div class="panel-heading">
+          <div><p class="eyebrow">ACOMPANHAMENTO</p><h2>Progresso da obra</h2></div>
+        </div>
+        <div class="progress-overview-body">
+          <div class="progress-ring"><span id="overall-progress">0%</span></div>
+          <div class="progress-detail">
+            <span>Etapas concluídas</span>
+            <strong id="completed-stages">0 de 12</strong>
+            <div class="progress-track"><span id="overall-bar"></span></div>
+          </div>
+        </div>
+      </article>
     </section>
 
-    <section class="summary-grid" aria-label="Resumo da obra">
-      <article class="summary-card progress-card">
-        <span>Progresso geral</span>
-        <strong id="overall-progress">0%</strong>
-        <div class="progress-track"><span id="overall-bar"></span></div>
-      </article>
-      <article class="summary-card">
-        <span>Orçamento previsto</span>
-        <strong id="planned-total">R$ 0,00</strong>
-      </article>
-      <article class="summary-card">
-        <span>Total gasto</span>
-        <strong id="spent-total">R$ 0,00</strong>
-      </article>
-      <article class="summary-card">
-        <span>Saldo do orçamento</span>
-        <strong id="balance-total">R$ 0,00</strong>
-      </article>
+    <section class="quick-actions" aria-label="Ações rápidas">
+      <button id="add-expense" class="quick-action quick-green" type="button"><span aria-hidden="true">＋</span>Nova despesa</button>
+      <button id="add-material" class="quick-action quick-blue" type="button"><span aria-hidden="true">▧</span>Adicionar material</button>
+      <button id="quick-stage" class="quick-action quick-purple" type="button"><span aria-hidden="true">✓</span>Registrar etapa</button>
     </section>
 
     <section class="content-grid">
-      <article class="panel">
+      <article class="panel evolution-panel">
         <div class="panel-heading">
-          <div><p class="eyebrow">ACOMPANHAMENTO</p><h2>Etapas da obra</h2></div>
+          <div><p class="eyebrow">VISUALIZAÇÃO DO PROJETO</p><h2>3D – Evolução da Obra</h2></div>
+          <span class="live-pill">REFERÊNCIA</span>
+        </div>
+        <div class="reference-house">
+          <img src="./images/house-final.png" alt="Visualização da residência de referência">
+          <span>Casa de referência · Modelo original</span>
+        </div>
+        <p class="visual-note">O modelo 3D interativo completo continua disponível no aplicativo Windows.</p>
+      </article>
+
+      <article class="panel finance-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">PLANEJAMENTO DA OBRA</p><h2>Resumo financeiro</h2></div>
+        </div>
+        <div class="finance-lines">
+          <div class="finance-line"><span class="finance-dot gold-dot"></span><span>Orçamento total</span><strong id="planned-total">R$ 0,00</strong></div>
+          <div class="finance-line"><span class="finance-dot red-dot"></span><span>Gastos realizados</span><strong id="spent-total">R$ 0,00</strong></div>
+          <div class="finance-line"><span class="finance-dot green-dot"></span><span>Saldo restante</span><strong id="balance-total">R$ 0,00</strong></div>
+        </div>
+        <div class="finance-footnote">Valores registrados nesta obra</div>
+      </article>
+    </section>
+
+    <section class="stage-gallery panel">
+      <div class="panel-heading">
+        <div><p class="eyebrow">ACOMPANHAMENTO REAL</p><h2>Etapas da obra</h2></div>
+      </div>
+      <div id="stage-gallery" class="stage-gallery-list"></div>
+    </section>
+
+    <section class="content-grid details-grid">
+      <article class="panel stages-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">PROGRESSO REAL</p><h2>Atualizar etapas</h2></div>
         </div>
         <div id="stages-list" class="stages-list"></div>
       </article>
@@ -63,14 +99,12 @@
       <article class="panel expenses-panel">
         <div class="panel-heading">
           <div><p class="eyebrow">CONTROLE FINANCEIRO</p><h2>Despesas recentes</h2></div>
-          <button id="add-expense" class="button button-primary" type="button">+ Nova despesa</button>
         </div>
         <div id="expenses-list" class="expenses-list"></div>
       </article>
       <article class="panel expenses-panel">
         <div class="panel-heading">
           <div><p class="eyebrow">CONTROLE DE MATERIAIS</p><h2>Materiais da obra</h2></div>
-          <button id="add-material" class="button button-primary" type="button">+ Material</button>
         </div>
         <div id="materials-list" class="expenses-list"></div>
       </article>

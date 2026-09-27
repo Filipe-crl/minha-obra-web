@@ -5,6 +5,7 @@ const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL
 const dateFormat = new Intl.DateTimeFormat("pt-BR");
 const byId = id => document.getElementById(id);
 const stagesList = byId("stages-list");
+const stageGallery = byId("stage-gallery");
 const expensesList = byId("expenses-list");
 const materialsList = byId("materials-list");
 const expenseDialog = byId("expense-dialog");
@@ -48,6 +49,9 @@ function render() {
   byId("work-title").textContent = data.name;
   byId("work-name").value = data.name;
   byId("overall-progress").textContent = `${Math.round(totals.progress)}%`;
+  byId("completed-stages").textContent = `${data.stages.filter(stage => stage.progress >= 100).length} de ${data.stages.length}`;
+  byId("overall-progress").parentElement.style.background =
+    `radial-gradient(closest-side,#07172d 79%,transparent 82%), conic-gradient(#31d7e3 ${totals.progress * 3.6}deg,#1b3559 0deg)`;
   byId("overall-bar").style.width = `${totals.progress}%`;
   byId("planned-total").textContent = money.format(totals.planned);
   byId("spent-total").textContent = money.format(totals.spent);
@@ -104,6 +108,28 @@ function render() {
     editPlan.addEventListener("click", () => openPlan(stage));
     row.append(edit, editPlan);
     stagesList.append(row);
+  }
+
+  stageGallery.replaceChildren();
+  for (const stage of data.stages) {
+    const tile = document.createElement("button");
+    tile.type = "button";
+    tile.className = "stage-tile";
+    tile.setAttribute("aria-label", `${stage.name}, ${Math.round(stage.progress)}%. Atualizar etapa.`);
+    const name = document.createElement("span");
+    name.className = "stage-tile-name";
+    name.textContent = stage.name;
+    const value = document.createElement("span");
+    value.className = "stage-tile-value";
+    value.textContent = `${Math.round(stage.progress)}%`;
+    const track = document.createElement("span");
+    track.className = "stage-track";
+    const bar = document.createElement("span");
+    bar.style.width = `${stage.progress}%`;
+    track.append(bar);
+    tile.append(name, value, track);
+    tile.addEventListener("click", () => openProgress(stage));
+    stageGallery.append(tile);
   }
 
   expensesList.replaceChildren();
@@ -218,6 +244,11 @@ byId("add-material").addEventListener("click", () => {
   form.reset();
   byId("material-error").textContent = "";
   materialDialog.showModal();
+});
+
+byId("quick-stage").addEventListener("click", () => {
+  const nextStage = data.stages.find(stage => stage.progress < 100) ?? data.stages.at(-1);
+  openProgress(nextStage);
 });
 
 byId("expense-form").addEventListener("submit", event => {

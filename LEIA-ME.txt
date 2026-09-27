@@ -1,5 +1,10 @@
 MINHA OBRA WEB - VERSAO PARA CELULAR E COMPUTADOR
 
+O painel mobile usa a identidade visual navy e a imagem original da casa.
+Ele e uma adaptacao responsiva da interface JavaFX; o celular nao altera nem
+substitui o aplicativo Windows. O modelo 3D interativo completo permanece no
+aplicativo Windows.
+
 Esta pasta contem uma aplicacao web instalavel (PWA), responsiva e offline
 depois do primeiro acesso. Inclui progresso por etapa, orcamento, despesas
 e backup manual em arquivo JSON.

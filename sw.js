@@ -1,5 +1,5 @@
-const CACHE_NAME = "minha-obra-web-v2";
-const APP_FILES = ["./", "./index.html", "./styles.css", "./app.mjs", "./data.mjs", "./manifest.webmanifest", "./icon.svg"];
+const CACHE_NAME = "minha-obra-web-v3";
+const APP_FILES = ["./", "./index.html", "./styles.css", "./app.mjs", "./data.mjs", "./manifest.webmanifest", "./icon.svg", "./images/house-final.png"];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_FILES)));
